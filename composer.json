@@ -1,0 +1,20 @@
+{
+    "name": "fordev/literalnumbers",
+    "type": "library",
+    "description": "Change numeric amounts to literal",
+    "homepage": "https://github.com/Forien/literalnumbers",
+    "keywords": ["numbers","literal","conversion"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Forien",
+            "email": "mr.forien@gmail.com",
+            "homepage": "https://github.com/Forien",
+            "role": "Main Developer"
+        }
+    ],
+    "autoload": {
+        "classmap": ["src/"]
+    },
+    "minimum-stability": "dev"
+}
