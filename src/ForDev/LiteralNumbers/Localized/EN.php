@@ -3,93 +3,74 @@ namespace ForDev\LiteralNumbers\Localized;
 
 use ForDev\LiteralNumbers\LiteralNumbersInterface;
 
-class PL implements LiteralNumbersInterface
+class EN implements LiteralNumbersInterface
 {
     protected $words = [
             'minus',
             [
                 'zero',
-                'jeden',
-                'dwa',
-                'trzy',
-                'cztery',
-                'pięć',
-                'sześć',
-                'siedem',
-                'osiem',
-                'dziewięć'
+                'one',
+                'two',
+                'three',
+                'four',
+                'five',
+                'six',
+                'seven',
+                'eight',
+                'nine'
             ],
             [
-                'dziesięć',
-                'jedenaście',
-                'dwanaście',
-                'trzynaście',
-                'czternaście',
-                'piętnaście',
-                'szesnaście',
-                'siedemnaście',
-                'osiemnaście',
-                'dziewiętnaście'
+                'ten',
+                'eleven',
+                'twelve',
+                'thirteen',
+                'fourteen',
+                'fifteen',
+                'sixteen',
+                'seventeen',
+                'eighteen',
+                'nineteen'
             ],
             [
-                'dziesięć',
-                'dwadzieścia',
-                'trzydzieści',
-                'czterdzieści',
-                'pięćdziesiąt',
-                'sześćdziesiąt',
-                'siedemdziesiąt',
-                'osiemdziesiąt',
-                'dziewięćdziesiąt'
+                'ten',
+                'twenty',
+                'thirty',
+                'fourty',
+                'fifty',
+                'sixty',
+                'seventy',
+                'eighty',
+                'ninety'
             ],
             [
-                'sto',
-                'dwieście',
-                'trzysta',
-                'czterysta',
-                'pięćset',
-                'sześćset',
-                'siedemset',
-                'osiemset',
-                'dziewięćset'
+                'hundred'
             ],
             [
-                'tysiąc',
-                'tysiące',
-                'tysięcy'
+                'thousand'
             ],
             [
-                'milion',
-                'miliony',
-                'milionów'
+                'million'
             ],
             [
-                'miliard',
-                'miliardy',
-                'miliardów'
+                'billion'
             ],
             [
-                'bilion',
-                'biliony',
-                'bilionów'
+                'trillion'
             ]
     ];
 
     protected $currencies = [
         'pln' => [
-            'złoty',
-            'złote',
-            'złotych'
+            'Polish Zloty',
+            'Polish Zlotys'
         ],
         'usd' => [
-            'dolar amerykański',
-            'dolary amerykańskie',
-            'dolarów amerykańskich'
+            'United States dollar',
+            'United States dollars'
         ],
         'euro' => [
-            'euro',
-            'euro',
-            'euro'
+            'Euro',
+            'Euros'
         ],
     ];
 
@@ -99,7 +80,7 @@ class PL implements LiteralNumbersInterface
 
     protected function conjugation($variants, $int)
     {
-        $txt = $variants[2];
+        $txt = $variants[0];
         if ($int == 1) {
             return $variants[0];
         }
@@ -121,15 +102,15 @@ class PL implements LiteralNumbersInterface
         $dziesiatki = ($j % 100 - $jednosci) / 10;
         $setki = ($j - $dziesiatki * 10 - $jednosci) / 100;
 
-        if ($setki > 0) $wynik .= $this->words[4][$setki - 1] . ' ';
+        if ($setki > 0) $wynik .= $this->words[1][$setki] . ' ' . $this->words[4][0] . ' ';
 
         if ($dziesiatki > 0)
             if ($dziesiatki == 1) $wynik .= $this->words[2][$jednosci] . ' ';
             else
                 $wynik .= $this->words[3][$dziesiatki - 1] . ' ';
 
-        if ($jednosci > 0 && $dziesiatki != 1) $wynik .= $this->words[1][$jednosci] . ' ';
-
+		if ($jednosci > 0 && $dziesiatki != 1) $wynik .= $this->words[1][$jednosci] . ' ';
+			
         return $wynik;
     }
 
@@ -144,7 +125,7 @@ class PL implements LiteralNumbersInterface
         }
 
         $txt = str_split(strrev($in), 3);
-
+		
         if ($in == 0) {
             $out = $this->words[1][0] . ' ';
         }
@@ -156,8 +137,8 @@ class PL implements LiteralNumbersInterface
                     $this->last = $liczba;
                     $out .= $this->number($liczba) . ' ';
                 } else {
-                    $out .= ($liczba > 1 ? $this->number($liczba) . ' ' : '')
-                        . $this->conjugation($this->words[4 + $i], $liczba) . ' ';
+                    $out .= $this->number($liczba) . ' '
+                        . $this->conjugation($this->words[4 + $i], 0) . ' ';
                 }
             }
         }
